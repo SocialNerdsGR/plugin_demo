@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  fpm:
+    build:
+      context: ./docker/fpm
+      args:
+        UID: ${UID}
+    environment:
+      - APP_ENV=${APP_ENV}
+      - APP_SECRET=${APP_SECRET}
+    container_name: plugin_fpm
+    restart: always
+    volumes:
+      - ./:/home/serveruser/project:delegated
+    networks:
+      - plugin_network
+  nginx:
+    build:
+      context: ./docker/nginx
+    container_name: plugin_nginx
+    restart: always
+    ports:
+      - "8080:80"
+    networks:
+      - plugin_network
+
+networks:
+  plugin_network:
