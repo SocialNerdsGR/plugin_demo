@@ -1,37 +1,37 @@
-# Docker for PHP
+# Event Subscriber Demo
 
-This is a development environment for PHP.
-It contains,
-- Apache
-- PHP-FPM
-- GD
-- Composer
-- MariaDB
-- phpMyAdmin
-
-# Installation
+## Installation
 Requirements
 - You need to have [Docker](https://docs.docker.com/engine/installation/) and Docker Compose installed
 
 Run in root folder,
 ~~~~
 cp .env.example .env
+~~~~
+
+If are on Linux, change UID, on .env, to the host's user id. You can get the user id by running,
+~~~~
+id -u
+~~~~
+
+Then run,
+~~~~
 docker-compose build && docker-compose up -d
 ~~~~
 
-Go to your browser on 127.0.0.1/test to check that everything is working correctly.
-You should see,
+Go to 127.0.0.1:8080/test.php to check that everything works. You should see,
 ~~~~
-Hello world!
+Hello World!
 ~~~~
 
-Start developing your PHP application in ./data/www/[NEW_FOLDER]
-
-You may add new alias for this folder in ./http/vhosts/main.conf
-
-Login to the container,
+Install dependencies,
 ~~~~
-docker exec -it app_fpm /bin/bash -c "TERM=$TERM exec bash"
+docker exec -w /home/serveruser/project/code plugin_fpm composer install
+~~~~
+
+"Login" to the container,
+~~~~
+docker exec -it plugin_fpm bash
 ~~~~
 
 Exit the container,
@@ -39,7 +39,7 @@ Exit the container,
 exit
 ~~~~
 
-Shutdown containers
+Shutdown containers,
 ~~~~
 docker-compose down
 ~~~~
