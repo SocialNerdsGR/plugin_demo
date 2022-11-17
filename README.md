@@ -1,4 +1,4 @@
-# Event Subscriber Demo
+# Plugin Demo using Event/Subscriber
 
 ## Installation
 Requirements
